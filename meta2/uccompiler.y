@@ -144,31 +144,28 @@ Declarator:
              ID ASSIGN Expr
              |ID
              ;
-Statement: Expr SEMI 
-        | SEMI        
-        | LBRACE Statementlbrace  
-        | IF LPAR Expr RPAR StatementError 
-        | IF LPAR Expr RPAR StatementError ELSE StatementError 
-         
-                                             
-        | WHILE LPAR Expr RPAR StatementError
-        | RETURN StatementReturn 
-        ;
+Statement:
+        SEMI                                                                                        
+    |   Expr SEMI                                   
+    |   LBRACE RBRACE                               
+    |   LBRACE error RBRACE                         
+    |   LBRACE StatementAUX RBRACE                  
+    |   IF LPAR Expr RPAR StatementERROR         
+    |   IF LPAR Expr RPAR StatementERROR ELSE StatementERROR    
+    |   WHILE LPAR Expr RPAR StatementERROR         
+    |   RETURN SEMI                                 
+    |   RETURN Expr SEMI                            
+    ;
 
+StatementERROR:     
+        Statement                                   
+    |   error SEMI                                  
+    ;        
 
-Statementlbrace: StatementError RBRACE  
-        | error RBRACE 
-        |  RBRACE  
-        ;
-
-StatementError: Statement 
-        | error SEMI 
-        ;
-
-StatementReturn: SEMI  
-        |  Expr SEMI 
-        ;
-
+StatementAUX:
+        StatementERROR StatementAUX                     
+    |   StatementERROR                              
+    ;
 
 Expr:
       Expr ASSIGN  Expr
