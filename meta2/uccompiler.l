@@ -3,6 +3,7 @@
     #include <stdbool.h>
     #include <string.h>
     #include "y.tab.h"
+    #include "ast.h"
     int numLines = 1;
     int numColumn = 1;
     int startColumn = 1;
@@ -10,6 +11,8 @@
     int errCol = 1;
     int errLine = 1;
     bool print = false;
+    extern node* tree;
+    extern int erro;
 %}
 
 ID                  [a-zA-Z\_][a-zA-Z\_0-9]*
@@ -136,32 +139,16 @@ SEMI        ";"
 %%
 
 
-
-/*
-int main(int argc, char *argv[])
-{
-    if(argc == 2){
-        if(strcmp(argv[1], "-l") == 0){
-            //imprimir tudo
-            print = true;
-        }
-        if(strcmp(argv[1],"-e2") == 0){
-            print = false;
-            yylex();
-            yyparse();
-
-        }
-    }
-    yylex();
-    yyparse();
-    return 0;
-}*/
 int main(int argc, char *argv[])
 {
 	if (argc==1 || strcmp(argv[1],"-e2")==0)
     {
         print = false;
 		yyparse();
+        if(tree != NULL){
+            free_tree(tree);
+        }
+        
     }
     else if(strcmp(argv[1],"-e1")==0){
         print = false;
@@ -171,6 +158,16 @@ int main(int argc, char *argv[])
         print = true;
 		yylex();
     }
+    else if(strcmp(argv[1],"-t")==0){
+        yyparse();
+        if(erro==0){
+            print_tree(0,tree);
+        }
+        if(tree != NULL){
+            free_tree(tree);
+        }
+    }
+    
 	return 0;
 }
 
