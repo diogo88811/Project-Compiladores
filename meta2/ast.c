@@ -8,7 +8,7 @@ node* create_node(const char* name){
 	//printf("create node\n");
 	node* n = (node *) malloc(sizeof(node));
 	n->name = strdup(name);
-	n->next = NULL;
+	n->brother = NULL;
 	n->son = NULL;
 	return n;
 }
@@ -25,13 +25,13 @@ void add_next(node* n, node* n2){
 		return;
 	}
 	node* temp = n;
-	if (temp->next == NULL){
-		temp->next = n2;
+	if (temp->brother == NULL){
+		temp->brother = n2;
 	} else {
-		while (temp->next != NULL){
-			temp = temp->next;
+		while (temp->brother != NULL){
+			temp = temp->brother;
 		}
-		temp->next = n2;
+		temp->brother = n2;
 	}
 }
 
@@ -56,19 +56,19 @@ void print_tree(int level, node* n){
 	for (int i = 0; i < level; i++) printf("..");
 	printf("%s\n", n->name);
 	print_tree(level + 1, n->son);
-	print_tree(level, n->next);
+	print_tree(level, n->brother);
 }
 
-void free_tree(node* n){
+void freeTree(node* n){
 	//printf("free tree\n");
 	if (n == NULL){
 		return;
 	}
 	if (n->son != NULL){
-		free_tree(n->son);
+		freeTree(n->son);
 	}
-	if (n->next != NULL){
-		free_tree(n->next);
+	if (n->brother != NULL){
+		freeTree(n->brother);
 	}
 	free(n->name);
 	free(n);

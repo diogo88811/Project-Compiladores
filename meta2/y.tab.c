@@ -1717,7 +1717,7 @@ yyreduce:
   case 39:
 #line 191 "uccompiler.y" /* yacc.c:1646  */
     {if((yyvsp[-1].node) != NULL){
-                                                            if((yyvsp[-1].node)->next!=NULL){
+                                                            if((yyvsp[-1].node)->brother!=NULL){
                                                                 (yyval.node) = create_node("StatList"); 
                                                                 add_son((yyval.node),(yyvsp[-1].node));
                                                             }

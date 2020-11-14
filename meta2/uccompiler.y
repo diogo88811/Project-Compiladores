@@ -189,7 +189,7 @@ Statement:
     |   LBRACE error RBRACE                            { $$ = create_node("Null");}
 
     |   LBRACE StatementAUX RBRACE                     {if($2 != NULL){
-                                                            if($2->next!=NULL){
+                                                            if($2->brother!=NULL){
                                                                 $$ = create_node("StatList"); 
                                                                 add_son($$,$2);
                                                             }

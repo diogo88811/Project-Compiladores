@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
         print = false;
 		yyparse();
         if(tree != NULL){
-            free_tree(tree);
+            freeTree(tree);
         }
         
     }
@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
             print_tree(0,tree);
         }
         if(tree != NULL){
-            free_tree(tree);
+            freeTree(tree);
         }
     }
     
